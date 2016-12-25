@@ -14,18 +14,15 @@ Download_Folder = Download_Path + "/Cate_Stuff"
 parser = argparse.ArgumentParser()
 parser.add_argument("-all")
 args = parser.parse_args()
-
-agent = mechanize.Browser()
-username, password = get_user_credentials()
-agent.add_password(Cate_URL, username, password)
-
-agent.set_handle_robots(True)
+credentials = get_user_credentials()
+#modules_to_download = get_modules_to_download()
 # year = get_year_of_access()
 # class_code = get_class_code()
 year = "2016"
 class_code = "c4"
-cate_string = format_cate_string(class_code, year, username)
-print(cate_string)
-agent.open(cate_string)
-create_directory(Download_Folder)
-download_file(agent, Download_Folder, "",Download_Folder+"/test")
+# cate_url = format_cate_string(class_code, year, credentials['username'])
+# print(cate_url)
+course_map = parse_cate_for_course_codes(credentials, year, class_code)
+print(course_map)
+# create_directory(Download_Folder)
+# distribute_download_from_cate_homepage(credentials, cate_url, modules_to_download, Download_Folder)
